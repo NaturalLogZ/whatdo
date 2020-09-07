@@ -3,6 +3,7 @@ import argparse
 import json
 
 DICT_PATH = '/home/lcgrout/FunProjects/whatdo/.activityDictionary'
+INITIAL_WEIGHT = 1
 
 def main():
 	# Set up parser and add various arguments
@@ -39,7 +40,25 @@ def main():
 	
 		# Update weights
 		
-	
+
+	# Adding Activites
+	if (args.add is not None):
+		# Check if we are adding something already in the dictionary
+		# Actually this check isn't needed by use of the setdefault method		
+
+		avgWeight = 0
+		for weight in activities.values():
+			avgWeight += weight
+		try:
+			avgWeight = avgWeight / len(activities)
+		except:
+			avgWeight = INITIAL_WEIGHT
+
+		activities.setdefault(args.add, avgWeight)
+
+
+
+	# Write updated dictionary	
 	oFile = open(DICT_PATH, 'w+')
 	json.dump(activities, oFile)
 	oFile.close()
