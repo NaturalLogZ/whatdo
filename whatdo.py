@@ -5,6 +5,11 @@ import json
 DICT_PATH = '/home/lcgrout/FunProjects/whatdo/.activityDictionary'
 INITIAL_WEIGHT = 1
 
+def update(dictionary, key):
+	dictionary[key] = dictionary[key]-1
+
+	return dictionary[key]
+
 def main():
 	# Set up parser and add various arguments
 	parser = argparse.ArgumentParser(prog='whatdo',
@@ -41,7 +46,7 @@ def main():
 		# Wait for user to hit enter to be sure the activity was completed
 	
 		# Update weights
-		
+		update(activities, randomAct)
 
 	# Adding Activites
 	if (args.add is not None):
