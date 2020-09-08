@@ -1,9 +1,15 @@
-import random
+import sys
 import argparse
 import json
+import random
 
 DICT_PATH = '/home/lcgrout/FunProjects/whatdo/.activityDictionary'
 INITIAL_WEIGHT = 1
+
+# EXIT CODES
+EXIT_UNEXPECTED = -1
+EXIT_NO_ACTS = 1
+EXIT_CANCEL = 2
 
 def update(dictionary, key):
 	dictionary[key] = dictionary[key]-1
@@ -38,7 +44,7 @@ def main():
 		# If there are no activities we can't randomly choose one
 		if (0 == len(activities)):
 			print("You don't have any activities yet!")
-			return 2
+			sys.exit(EXIT_NO_ACTS)
 	
 		randomAct = random.choices(list(activities.keys()), list(activities.values()))[0]
 		print(randomAct)
@@ -47,7 +53,7 @@ def main():
 		try:
 			input("Press Enter when you complete the activity! (Or press Ctrl-D to cancel.)")
 		except:
-			return -1
+			sys.exit(EXIT_CANCEL)
 		# Update weights
 		update(activities, randomAct)
 
