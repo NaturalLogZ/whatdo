@@ -30,11 +30,13 @@ def main():
 	
 	# We only want to select an activity if no arguments were passed
 	if not any(vars(args).values()):
+		# If there are no activities we can't randomly choose one
 		if (0 == len(activities)):
 			print("You don't have any activities yet!")
 			return 2
 	
-		choice = random.choices(activities.keys(), activities.values())
+		randomAct = random.choices(list(activities.keys()), list(activities.values()))[0]
+		print(randomAct)
 	
 		# Wait for user to hit enter to be sure the activity was completed
 	
