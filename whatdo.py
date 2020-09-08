@@ -16,6 +16,27 @@ def update(dictionary, key):
 
 	return dictionary[key]
 
+def readDict(path):
+	try:
+		iFile = open(path)
+	except:
+		iFile = open(path, 'w+')
+	try:
+		dictionary = json.load(iFile)
+	except:
+		dictionary = dict()
+
+	iFile.close()
+
+	return dictionary
+
+def writeDict(dictionary, path):
+	oFile = open(path, 'w+')
+	json.dump(dictionary, oFile)
+	oFile.close()
+
+	return
+
 def main():
 	# Set up parser and add various arguments
 	parser = argparse.ArgumentParser(prog='whatdo',
@@ -27,18 +48,8 @@ def main():
 	
 	args = parser.parse_args()
 	
-	try:
-		iFile = open(DICT_PATH)
-	except:
-		iFile = open(DICT_PATH, 'w+')
-	
-	try:
-		activities = json.load(iFile)
-	except:
-		activities = dict()
+	activities = readDict(DICT_PATH)
 
-	iFile.close()
-	
 	# We only want to select an activity if no arguments were passed
 	if not any(vars(args).values()):
 		# If there are no activities we can't randomly choose one
@@ -75,10 +86,8 @@ def main():
 
 
 	# Write updated dictionary	
-	oFile = open(DICT_PATH, 'w+')
-	json.dump(activities, oFile)
-	oFile.close()
-	
+	writeDict(activities, DICT_PATH)
+
 	return 0
 
 if "__main__" == __name__:
