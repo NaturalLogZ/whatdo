@@ -44,7 +44,10 @@ def main():
 		print(randomAct)
 	
 		# Wait for user to hit enter to be sure the activity was completed
-	
+		try:
+			input("Press Enter when you complete the activity! (Or press Ctrl-D to cancel.)")
+		except:
+			return -1
 		# Update weights
 		update(activities, randomAct)
 
